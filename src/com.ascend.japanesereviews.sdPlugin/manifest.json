@@ -1,0 +1,41 @@
+{
+  "Actions": [
+    {
+      "Icon": "pluginIcon",
+      "Name": "Japanese Reviews",
+      "States": [
+        {
+          "Image": "pluginIcon",
+          "TitleAlignment": "bottom",
+          "FontSize": "11"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Displays the number of current reviews across Japanese learning sites.",
+      "UUID": "com.ascend.japanesereviews.action"
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "Ascend (Will Eddins)",
+  "CodePath": "index.html",
+  "Description": "Displays the number of current japanese reviews.",
+  "Name": "Japanese Reviews",
+  "Icon": "pluginIcon",
+  "URL": "https://github.com/ascendedguard/streamdeck-japanesereviews",
+  "PropertyInspectorPath": "propertyinspector.html",
+  "Version": "1.0.0",
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Software": 
+    {
+        "MinimumVersion" : "4.1"
+    }
+}

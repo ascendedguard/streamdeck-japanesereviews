@@ -1,0 +1,1 @@
+./DistributionTool -b -i ../src/com.ascend.japanesereviews.sdPlugin -o ./
