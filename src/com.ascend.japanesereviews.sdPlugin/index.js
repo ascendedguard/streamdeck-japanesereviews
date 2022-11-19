@@ -4,7 +4,7 @@ let reviewIntervalTimer = null;
 
 const supportedSites = {
   bunpro: {
-    reviewUrl: 'https://www.bunpro.jp/dashboard',
+    reviewUrl: 'https://bunpro.jp/dashboard',
     icon: 'bunpro.png',
     getReviewValue(settings, callback) {
       const { apiKey } = settings;
@@ -16,7 +16,7 @@ const supportedSites = {
         'Cache-Control': 'no-cache',
       });
 
-      const apiEndpoint = new Request(`https://www.bunpro.jp/api/user/${apiKey}/study_queue`, {
+      const apiEndpoint = new Request(`https://bunpro.jp/api/user/${apiKey}/study_queue`, {
         method: 'GET',
         headers: requestHeaders,
       });
