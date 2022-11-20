@@ -23,7 +23,7 @@
   "Icon": "pluginIcon",
   "URL": "https://github.com/ascendedguard/streamdeck-japanesereviews",
   "PropertyInspectorPath": "propertyinspector.html",
-  "Version": "1.0.1",
+  "Version": "1.0.2",
   "OS": [
     {
       "Platform": "mac",
