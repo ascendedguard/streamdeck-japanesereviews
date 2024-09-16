@@ -20,8 +20,10 @@ function showFieldsBySelectedWebsite() {
 
     if (website === 'bunpro') {
       apiKeyField.placeholder = 'Bunpro API Token';
-    } else {
+    } else if (website === 'wanikani') {
       apiKeyField.placeholder = 'Wanikani V2 API Token (read-only)';
+    } else if (website === 'marumori-vocab' || website === 'marumori-grammar') {
+      apiKeyField.placeholder = 'MaruMori API Key';
     }
   }
 }
