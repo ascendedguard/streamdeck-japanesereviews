@@ -188,10 +188,21 @@ const reviewsAction = {
   updateReviews(context, settings) {
     const site = supportedSites[settings.website];
 
-    site.getReviewValue(settings, (count) => {
-      this.buildImageAsDataUri(context, settings, count);
-      this.storeLastValues(context, settings, count);
-    });
+    // MaruMori API has a rate limit of 1 (!) request every 250ms.
+    // As such, having vocab AND grammar icons will hit a 429 error...
+    // We wait an additional 1 second on grammar to mitigate this.
+    let delay = 0;
+
+    if (settings.website === 'marumori-grammar') {
+      delay = 1000;
+    }
+
+    setTimeout(() => {
+      site.getReviewValue(settings, (count) => {
+        this.buildImageAsDataUri(context, settings, count);
+        this.storeLastValues(context, settings, count);
+      });
+    }, delay);
   },
 
   scheduleReviews(context, settings) {
@@ -217,15 +228,7 @@ const reviewsAction = {
 
     // Minimum 2 minutes until next (e.g. 10:29), maximum 11 (e.g. 10:30)
     const minutesTillFirstReview = 10 - (new Date().getMinutes() % 10) + 1;
-    let firstReviewMilliseconds = minutesTillFirstReview * 60 * 1000;
-
-    // MaruMori API has a rate limit of 1 (!) request every 250ms.
-    // As such, having vocab AND grammar icons will hit a 429 error...
-    // We wait an additional 5 seconds on grammar to mitigate this.
-
-    if (settings.website === 'marumori-grammar') {
-      firstReviewMilliseconds += 5000;
-    }
+    const firstReviewMilliseconds = minutesTillFirstReview * 60 * 1000;
 
     setTimeout(() => {
       this.updateReviews(context, settings);
