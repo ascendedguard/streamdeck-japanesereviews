@@ -27,54 +27,6 @@ const supportedSites = {
     },
   },
 
-  kitsun: {
-    reviewUrl: 'https://kitsun.io/decks',
-    icon: 'kitsun.png',
-    getReviewValue(settings, callback) {
-      const { username, password } = settings;
-
-      if (username == null || password == null) return;
-
-      const loginHeaders = new Headers({
-        Accept: 'application/json, text/plain, */*',
-        'Content-Type': 'application/json;charset=utf-8',
-        DNT: 1,
-        Pragma: 'no-cache',
-        'Cache-Control': 'no-cache',
-      });
-
-      const loginApiEndpoint = new Request('https://api.kitsun.io/profile/login', {
-        method: 'POST',
-        headers: loginHeaders,
-        body: JSON.stringify({
-          email: username,
-          password,
-        }),
-      });
-
-      fetch(loginApiEndpoint, { cache: 'no-store' })
-        .then((response) => response.json())
-        .then((loginResponseBody) => {
-          if (loginResponseBody.success) {
-            const requestHeaders = new Headers({
-              Accept: 'application/json, text/plain, */*',
-              Pragma: 'no-cache',
-              'Cache-Control': 'no-cache',
-            });
-
-            const apiEndpoint = new Request('https://api.kitsun.io/general/home', {
-              method: 'GET',
-              headers: requestHeaders,
-            });
-
-            fetch(apiEndpoint, { cache: 'no-store' })
-              .then((response) => response.json())
-              .then((responseBody) => callback(responseBody.counts.reviews));
-          }
-        });
-    },
-  },
-
   wanikani: {
     reviewUrl: 'https://www.wanikani.com/review',
     icon: 'wanikani.png',
@@ -242,7 +194,7 @@ const reviewsAction = {
   },
 
   onWillAppear(context, settings) {
-    if (settings.apiKey || (settings.username && settings.password)) {
+    if (settings.apiKey) {
       this.scheduleReviews(context, settings);
     } else {
       this.buildImageAsDataUri(context, settings, 'key?');

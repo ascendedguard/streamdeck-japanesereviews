@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -11,9 +11,8 @@
     <div class="sdpi-wrapper">
         <div class="sdpi-item">
             <div class="sdpi-item-label">Website</div>
-            <select class="sdpi-item-value select" id="websiteSelect" onchange="onWebsiteChange();">
+            <select title="Website" class="sdpi-item-value select" id="websiteSelect" onchange="onWebsiteChange();">
                <option value="bunpro" selected="selected">Bunpro</option>
-               <option value="kitsun">Kitsun</option>
                <option value="wanikani">Wanikani</option>
                <option value="marumori-vocab">MaruMori Vocab</option>
                <option value="marumori-grammar">MaruMori Grammar</option>
@@ -24,18 +23,6 @@
             <div class="sdpi-item">
                 <div class="sdpi-item-label">API Key</div>
                 <input class="sdpi-item-value" id="apiKey" required placeholder="Bunpro API Token" onchange="updateSettings();">
-            </div>
-        </div>
-
-        <div id="usernamePasswordGroup">
-            <div class="sdpi-item">
-                <div class="sdpi-item-label">Username</div>
-                <input class="sdpi-item-value" id="serviceUsername" required onchange="updateSettings();">
-            </div>
-
-            <div class="sdpi-item">
-                <div class="sdpi-item-label">Password</div>
-                <input class="sdpi-item-value" id="servicePassword" type="password" required onchange="updateSettings();">
             </div>
         </div>
     </div>

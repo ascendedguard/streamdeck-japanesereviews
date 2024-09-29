@@ -5,7 +5,6 @@ A collection of review trackers for various Japanese review websites. The follow
 | Name     | Description     | Website              |
 | -------- | --------------- | -------------------- |
 | Bunpro   | Grammar & Vocab | https://bunpro.jp    |
-| Kitsun   | Vocabulary      | https://kitsun.io    |
 | Wanikani | Kanji           | https://wanikani.com |
 | MaruMori | Grammar & Vocab | https://marumori.io  |
 

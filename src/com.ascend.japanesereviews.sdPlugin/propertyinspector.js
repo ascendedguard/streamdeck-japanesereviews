@@ -4,55 +4,34 @@ let actionInfo = {};
 
 function showFieldsBySelectedWebsite() {
   const website = document.getElementById('websiteSelect').value;
-  const passGroup = document.getElementById('usernamePasswordGroup');
-  const apiGroup = document.getElementById('apiKeyGroup');
+  const apiKeyField = document.getElementById('apiKey');
 
-  if (website === 'kitsun') {
-    // Kitsun doesn't have an API yet, so we use username/password.
-    apiGroup.className = 'hidden';
-    passGroup.className = '';
-  } else {
-    // Every other site should use an API key.
-    passGroup.className = 'hidden';
-    apiGroup.className = '';
-
-    const apiKeyField = document.getElementById('apiKey');
-
-    if (website === 'bunpro') {
-      apiKeyField.placeholder = 'Bunpro API Token';
-    } else if (website === 'wanikani') {
-      apiKeyField.placeholder = 'Wanikani V2 API Token (read-only)';
-    } else if (website === 'marumori-vocab' || website === 'marumori-grammar') {
-      apiKeyField.placeholder = 'MaruMori API Key';
-    }
+  if (website === 'bunpro') {
+    apiKeyField.placeholder = 'Bunpro API Token';
+  } else if (website === 'wanikani') {
+    apiKeyField.placeholder = 'Wanikani V2 API Token (read-only)';
+  } else if (website === 'marumori-vocab' || website === 'marumori-grammar') {
+    apiKeyField.placeholder = 'MaruMori API Key';
   }
 }
 
 function refreshSettings(settings) {
   const apiKeyField = document.getElementById('apiKey');
-  const usernameField = document.getElementById('serviceUsername');
-  const passwordField = document.getElementById('servicePassword');
   const websiteField = document.getElementById('websiteSelect');
 
   if (settings) {
     apiKeyField.value = settings.apiKey ?? '';
-    usernameField.value = settings.username ?? '';
-    passwordField.value = settings.password ?? '';
     websiteField.value = settings.website ?? 'bunpro';
 
     showFieldsBySelectedWebsite();
   }
 
   apiKeyField.disabled = false;
-  usernameField.disabled = false;
-  passwordField.disabled = false;
   websiteField.disabled = false;
 }
 
 function updateSettings() {
   const apiKeyField = document.getElementById('apiKey');
-  const usernameField = document.getElementById('serviceUsername');
-  const passwordField = document.getElementById('servicePassword');
   const websiteField = document.getElementById('websiteSelect');
 
   const setSettings = {};
@@ -60,8 +39,6 @@ function updateSettings() {
   setSettings.context = uuid;
   setSettings.payload = {};
   setSettings.payload.apiKey = apiKeyField.value;
-  setSettings.payload.username = usernameField.value;
-  setSettings.payload.password = passwordField.value;
   setSettings.payload.website = websiteField.value;
 
   websocket.send(JSON.stringify(setSettings));
