@@ -7,6 +7,7 @@ A collection of review trackers for various Japanese review websites. The follow
 | Bunpro   | Grammar & Vocab | https://bunpro.jp    |
 | Kitsun   | Vocabulary      | https://kitsun.io    |
 | Wanikani | Kanji           | https://wanikani.com |
+| MaruMori | Grammar & Vocab | https://marumori.io  |
 
 Icons for each website are shown with a counter of the number of reviews currently waiting, which updates every 10 minutes. Updates are timed to 1 minute after the hour to ensure hourly updates (esp. Wanikani) are shown as soon as possible.
 

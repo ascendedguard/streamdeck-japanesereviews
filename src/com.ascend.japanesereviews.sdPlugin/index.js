@@ -98,6 +98,52 @@ const supportedSites = {
         .then((responseBody) => callback(responseBody.data.reviews[0].subject_ids.length));
     },
   },
+
+  'marumori-vocab': {
+    reviewUrl: 'https://marumori.io/study-lists/reviews',
+    icon: 'marumori.png',
+    getReviewValue(settings, callback) {
+      const { apiKey } = settings;
+
+      const requestHeaders = new Headers({
+        Authorization: `Bearer ${apiKey}`,
+        Pragma: 'no-cache',
+        'Cache-Control': 'no-cache',
+      });
+
+      const apiEndpoint = new Request('https://public-api.marumori.io/home', {
+        method: 'GET',
+        headers: requestHeaders,
+      });
+
+      fetch(apiEndpoint, { cache: 'no-store' })
+        .then((response) => response.json())
+        .then((responseBody) => callback(responseBody.data.counts.reviews));
+    },
+  },
+
+  'marumori-grammar': {
+    reviewUrl: 'https://marumori.io/study-lists/reviews?grammar=true',
+    icon: 'marumori.png',
+    getReviewValue(settings, callback) {
+      const { apiKey } = settings;
+
+      const requestHeaders = new Headers({
+        Authorization: `Bearer ${apiKey}`,
+        Pragma: 'no-cache',
+        'Cache-Control': 'no-cache',
+      });
+
+      const apiEndpoint = new Request('https://public-api.marumori.io/home', {
+        method: 'GET',
+        headers: requestHeaders,
+      });
+
+      fetch(apiEndpoint, { cache: 'no-store' })
+        .then((response) => response.json())
+        .then((responseBody) => callback(responseBody.data.counts.grammarReviews));
+    },
+  },
 };
 
 const DestinationEnum = Object.freeze(
@@ -142,10 +188,21 @@ const reviewsAction = {
   updateReviews(context, settings) {
     const site = supportedSites[settings.website];
 
-    site.getReviewValue(settings, (count) => {
-      this.buildImageAsDataUri(context, settings, count);
-      this.storeLastValues(context, settings, count);
-    });
+    // MaruMori API has a rate limit of 1 (!) request every 250ms.
+    // As such, having vocab AND grammar icons will hit a 429 error...
+    // We wait an additional 1 second on grammar to mitigate this.
+    let delay = 0;
+
+    if (settings.website === 'marumori-grammar') {
+      delay = 1000;
+    }
+
+    setTimeout(() => {
+      site.getReviewValue(settings, (count) => {
+        this.buildImageAsDataUri(context, settings, count);
+        this.storeLastValues(context, settings, count);
+      });
+    }, delay);
   },
 
   scheduleReviews(context, settings) {
